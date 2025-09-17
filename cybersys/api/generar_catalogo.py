@@ -63,7 +63,7 @@ def generar_catalogo_pdf(docname):
     pdf_data = get_pdf(html)
     # Guardar PDF como archivo en File doctype
     file_name = f"Catalogo_{docname}.pdf"
-    saved_file = save_file(file_name, pdf_data, folder='Home/Attachments', is_private=0)
+    saved_file = save_file(file_name, pdf_data, "Productos Johan", docname, folder='Home/Attachments', is_private=0)
 
     # Devolver la URL del archivo para que cliente lo abra
     return {
