@@ -1,12 +1,88 @@
-{% extends "templates/web.html" %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>📦 Productos Disponibles</title>
 
-{% block title %}Lista de Productos{% endblock %}
+  <!-- Tipografía moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-{% block page_content %}
-<div class="container">
-    <h1 class="page-title">📦 Productos Disponibles</h1>
-    <div id="product-list" class="product-grid">
-        <!-- Aquí se cargan los productos desde index.js -->
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1 class="brand">CyberSys · Productos</h1>
+
+      <div class="search-wrap">
+        <input id="search-input" type="search" placeholder="Buscar por nombre o código (item_name, item_code)..." />
+      </div>
     </div>
-</div>
-{% endblock %}
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Filtros">
+      <section class="filter-block">
+        <h3>Filtrar</h3>
+
+        <div class="filter-section">
+          <label class="filter-label">Categorías</label>
+          <div id="categories-list" class="categories-list">
+            <!-- Checkboxes generadas dinámicamente -->
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <label class="filter-label">Rango de precio</label>
+          <div class="price-range">
+            <div class="range-values">
+              <span id="min-price-label">S/ 0</span>
+              <span id="max-price-label">S/ 0</span>
+            </div>
+            <!-- Dual range using two input[type=range] -->
+            <div class="dual-range">
+              <input id="range-min" type="range" min="0" max="1000" step="1" />
+              <input id="range-max" type="range" min="0" max="1000" step="1" />
+            </div>
+            <div class="price-inputs">
+              <input id="price-min-input" type="number" step="0.01" />
+              <input id="price-max-input" type="number" step="0.01" />
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button id="clear-filters" class="btn-secondary">Limpiar filtros</button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="content" aria-live="polite">
+      <div class="controls-row">
+        <div id="results-info" class="results-info">Cargando productos...</div>
+        <div id="sort-wrap" class="sort-wrap">
+          <label for="sort-select" class="sort-label">Ordenar:</label>
+          <select id="sort-select">
+            <option value="default">Por defecto</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="name-asc">Nombre A→Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="product-grid" class="product-grid">
+        <!-- Tarjetas generadas por script -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>© CyberSys · Inventario</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
