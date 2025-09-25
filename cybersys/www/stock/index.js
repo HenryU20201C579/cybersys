@@ -18,7 +18,7 @@ function renderProducts(products) {
     tbody.innerHTML = "";
 
     if (products.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6">No se encontraron productos</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5">No se encontraron productos</td></tr>`;
         return;
     }
 
@@ -30,10 +30,6 @@ function renderProducts(products) {
             <td>${p.item_name}</td>
             <td>${p.item_group}</td>
             <td>S/ ${p.standard_rate ? p.standard_rate.toFixed(2) : "0.00"}</td>
-            <td class="actions">
-                <button class="move">Mover</button>
-                <button class="add">Agregar</button>
-            </td>
         `;
         tbody.appendChild(tr);
     });

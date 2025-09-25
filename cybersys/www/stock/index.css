@@ -65,28 +65,15 @@ body {
     background: #f5faff;
 }
 
+.product-table td:first-child {
+    text-align: center;
+    width: 80px;
+}
+
 .product-table img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     border-radius: 4px;
     background: #f1f1f1;
-}
-
-.actions button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 5px;
-    font-size: 0.85rem;
-}
-
-.actions .move {
-    background: #f0f0f0;
-}
-
-.actions .add {
-    background: #007bff;
-    color: #fff;
 }
