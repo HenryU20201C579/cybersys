@@ -1,55 +1,18 @@
-<div class="productos-container">
-  <h1>Catálogo de ProductoXXXXX</h1>
-  <div id="productos" class="grid"></div>
-</div>
-
-<style>
-  .productos-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
-  }
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  }
-  .card img {
-    max-width: 100%;
-    border-radius: 5px;
-  }
-</style>
-
-<script>
-  frappe.ready(() => {
-    frappe.call({
-      method: "frappe.client.get_list",
-      args: {
-        doctype: "Item", 
-        fields: ["item_name", "image", "description"],
-        limit_page_length: 20
-      },
-      callback: function(r) {
-        const productosDiv = document.getElementById("productos");
-        r.message.forEach(p => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <img src="${p.image || '/files/no-image.jpg'}" alt="${p.item_name}">
-            <h3>${p.item_name}</h3>
-            <p>${p.description || ''}</p>
-          `;
-          productosDiv.appendChild(card);
-        });
-      }
-    });
-  });
-</script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Productos</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Listado de Productos</h1>
+        <div id="products-container" class="products-grid">
+            <!-- Aquí se insertan los productos -->
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
