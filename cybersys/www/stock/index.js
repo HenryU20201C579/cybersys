@@ -25,11 +25,11 @@ function renderProducts(products) {
     products.forEach(p => {
         let tr = document.createElement("tr");
         tr.innerHTML = `
-            <td><img src="${p.image || '/files/placeholder.png'}" alt="${p.item_name}"></td>
             <td>${p.item_code}</td>
             <td>${p.item_name}</td>
             <td>${p.item_group}</td>
             <td>S/ ${p.standard_rate ? p.standard_rate.toFixed(2) : "0.00"}</td>
+            <td><img src="${p.image || '/files/placeholder.png'}" alt="${p.item_name}"></td>
         `;
         tbody.appendChild(tr);
     });

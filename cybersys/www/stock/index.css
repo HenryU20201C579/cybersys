@@ -65,7 +65,7 @@ body {
     background: #f5faff;
 }
 
-.product-table td:first-child {
+.product-table td:last-child {
     text-align: center;
     width: 80px;
 }
