@@ -1,37 +1,26 @@
-frappe.ready(() => {
-    cargarProductos();
-});
+let productList = document.getElementById("product-list");
 
-function cargarProductos() {
+frappe.ready(() => {
     frappe.call({
         method: "cybersys.api.stock.get_products",
-        callback: function(r) {
+        callback: function (r) {
             if (r.message) {
-                renderizarProductos(r.message);
-            } else {
-                document.getElementById("products-container").innerHTML =
-                    "<p>No se encontraron productos.</p>";
+                render_products(r.message);
             }
         }
     });
-}
+});
 
-function renderizarProductos(productos) {
-    const container = document.getElementById("products-container");
-    container.innerHTML = "";
-
-    productos.forEach(prod => {
-        const card = document.createElement("div");
-        card.classList.add("product-card");
+function render_products(products) {
+    productList.innerHTML = "";
+    products.forEach(p => {
+        let card = document.createElement("div");
+        card.className = "product-card";
 
         card.innerHTML = `
-            <img src="${prod.image || '/assets/frappe/images/ui/no-image.png'}" alt="${prod.item_name}">
-            <h3>${prod.item_name}</h3>
-            <p><strong>Grupo:</strong> ${prod.item_group}</p>
-            <p><strong>Precio:</strong> ${prod.standard_rate || "N/A"} </p>
-            <p><strong>UOM:</strong> ${prod.stock_uom}</p>
-            <p>${prod.description || ""}</p>
+            <div class="product-name">${p.item_name}</div>
+            <div class="product-price">S/ ${p.standard_rate || "0.00"}</div>
         `;
-        container.appendChild(card);
+        productList.appendChild(card);
     });
 }
