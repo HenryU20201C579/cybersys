@@ -1,3 +1,4 @@
+
 let allProducts = [];
 
 async function loadProducts() {
@@ -23,13 +24,18 @@ function renderProducts(products) {
     }
 
     products.forEach(p => {
+        const hasImage = p.image && !p.image.includes("placeholder.png");
+
         let tr = document.createElement("tr");
         tr.innerHTML = `
             <td>${p.item_code}</td>
             <td>${p.item_name}</td>
             <td>${p.item_group}</td>
             <td>S/ ${p.standard_rate ? p.standard_rate.toFixed(2) : "0.00"}</td>
-            <td><img src="${p.image || '/files/placeholder.png'}" alt="${p.item_name}"></td>
+            <td>
+                <img src="${hasImage ? p.image : '/files/placeholder.png'}" 
+                     alt="${hasImage ? p.item_name : 'Sin Imagen'}">
+            </td>
         `;
         tbody.appendChild(tr);
     });
@@ -70,6 +76,7 @@ function initFilters() {
     minInput.addEventListener("input", applyFilters);
     maxInput.addEventListener("input", applyFilters);
     document.getElementById("sort").addEventListener("change", applyFilters);
+    document.getElementById("image-filter").addEventListener("change", applyFilters);
 }
 
 function applyFilters() {
@@ -78,6 +85,7 @@ function applyFilters() {
     const minPrice = parseFloat(document.getElementById("min-price").value);
     const maxPrice = parseFloat(document.getElementById("max-price").value);
     const sortOrder = document.getElementById("sort").value;
+    const imageFilter = document.getElementById("image-filter").value;
 
     let filtered = allProducts.filter(p => {
         const matchesSearch =
@@ -88,7 +96,13 @@ function applyFilters() {
         const price = p.standard_rate || 0;
         const matchesPrice = price >= minPrice && price <= maxPrice;
 
-        return matchesSearch && matchesCategory && matchesPrice;
+        const hasImage = p.image && !p.image.includes("placeholder.png");
+        const matchesImage =
+            imageFilter === "with" ? hasImage :
+            imageFilter === "without" ? !hasImage :
+            true;
+
+        return matchesSearch && matchesCategory && matchesPrice && matchesImage;
     });
 
     if (sortOrder === "asc") {
